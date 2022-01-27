@@ -11,6 +11,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SellerhomeComponent } from './sellerhome/sellerhome.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { ViewproductsComponent } from './viewproducts/viewproducts.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ViewproductsComponent } from './viewproducts/viewproducts.component';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class SellerdashModule { }

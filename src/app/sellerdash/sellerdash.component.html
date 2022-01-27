@@ -7,7 +7,7 @@
             close
         </mat-icon>
     </button>
-    Responsive side navigation
+    {{name}}'s Seller Portal 
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -35,9 +35,9 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button class="menu-button" routerLink="">
-            <mat-icon>help</mat-icon>
-            <span>Help</span>
+        <button mat-button class="menu-button" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span> Logout</span>
         </button>
 
     </mat-sidenav>

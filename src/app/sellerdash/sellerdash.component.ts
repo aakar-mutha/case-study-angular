@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sellerdash',
   templateUrl: './sellerdash.component.html',
@@ -7,7 +8,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class SellerdashComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
-  constructor(private ovserver:BreakpointObserver) {
+  constructor(private ovserver:BreakpointObserver, private router: Router) {
    }
 
   name = localStorage.getItem('fname') + ' ' + localStorage.getItem('lname');
@@ -23,6 +24,10 @@ export class SellerdashComponent implements OnInit {
       }
     });
   
+  }
+  logout() {
+    // localStorage.clear();
+    this.router.navigate(['/login']);
   }
   ngOnInit(): void {
   }

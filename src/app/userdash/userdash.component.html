@@ -1,0 +1,15 @@
+<div class="navbar bg-primary shadow-sm">
+    <div class="navbar-brand align-items-left d-flex" style="color: white; font-size: 1.25rem;" routerLink="/userdash">
+        <fa-icon [icon]="logoicon"></fa-icon>
+        <span style="padding-left: 10px;">Welcome to Homepage</span>
+    </div>
+    <!-- <div class="navbar-brand fx" style="color: white; font-size: 1.25rem;" >
+sdfsdfs
+        <input type="text" class="form-control" placeholder="Search Products">
+    <fa-icon [icon]="searchicon" class="searchicon d-flex align-items-center"></fa-icon>
+    </div> -->
+    <div class="navbar-brand align-items-left d-flex" style="color: white; font-size: 1.25rem;">
+        <fa-icon [icon]="carticon" routerLink="cart"></fa-icon>
+    </div>
+</div>
+<router-outlet></router-outlet>

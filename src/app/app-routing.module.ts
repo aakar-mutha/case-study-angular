@@ -4,8 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 // import { SellerhomeComponent } from './sellerhome/sellerhome.component';
-import { UserhomeComponent } from './userhome/userhome.component';
-import { SellerdashComponent } from './sellerdash/sellerdash.component';
 import { AuthguardGuard } from './guard/authguard.guard';
 import { RoleguardGuard } from './guard/roleguard.guard';
 
@@ -18,10 +16,9 @@ const routes: Routes = [
   
   // {path:'sellerhome', component:SellerhomeComponent, canActivate:[AuthguardGuard, RoleguardGuard], data:{expectedRoles:['seller']}},
   // {path:'userhome', component:UserhomeComponent, canActivate:[AuthguardGuard,RoleguardGuard],data:{expectedRoles:['user']}},
-  // {path:'sellerhome', component:SellerhomeComponent,},
-  {path:'userhome', component:UserhomeComponent,},
+  {path:'userdash', loadChildren:()=> import("../app/userdash/userdash.module").then(m=>m.UserdashModule)},
   { path: 'sellerdash', loadChildren: () => import('./sellerdash/sellerdash.module').then(m => m.SellerdashModule) },
-  // {path: 'sellerdash', component:SellerdashComponent},
+
 ];
 
 @NgModule({
