@@ -11,12 +11,17 @@ import { LoginserviceService } from '../login/loginservice.service';
 })
 export class LoginComponent implements OnInit {
   loginform: any;
-  resp:any;
+  resp: any;
+  i: any;
   constructor(private formbuilder: FormBuilder, private loginService: LoginserviceService, private router: Router) {
     this.loginform = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
       pass: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    if(localStorage.getItem('role')){
+      this.router.navigate(['/'+localStorage.getItem('role')+'dash']);
+    }
   }
 
   get email() {
@@ -29,34 +34,37 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.loginService.getData().subscribe(res => {
       this.resp = res;
-      console.log(this.resp);
-      for(var i=0;i<this.resp.length;i++){
-        console.log(this.email.value);
-        console.log(this.pass.value);
-        console.log(this.email.value == this.resp[i].email && this.pass.value == this.resp[i].pass)
-        if(this.email.value == this.resp[i].email && this.pass.value == this.resp[i].pass){
+      console.log(this.resp.length);
+      for (this.i = 0; this.i < this.resp.length; this.i++) {
+        // console.log(this.email.value);
+        // console.log(this.pass.value);
+        console.log(this.resp[this.i]);
+        console.log(this.email.value == this.resp[this.i].email && this.pass.value == this.resp[this.i].pass)
+        if (this.email.value == this.resp[this.i].email && this.pass.value == this.resp[this.i].pass) {
           alert('Login Successful');
-
-          if (this.resp[i].role == 'seller') {
-            this.router.navigate(['/sellerhome']);
+          // console.log(this.resp[this.i].role);
+          if (this.resp[this.i].role == 'seller') {
+            this.router.navigate(['/sellerdash']);
+            localStorage.setItem('fname', this.resp[this.i].fname);
+            localStorage.setItem('lname', this.resp[this.i].lname);
+            localStorage.setItem('email', this.resp[this.i].email);
+            localStorage.setItem('role', this.resp[this.i].role);
+            break;
           }
-          else  {
-            this.router.navigate(['/userhome']);
+          else {
+            this.router.navigate(['/userdash']);
+            localStorage.setItem('fname', this.resp[this.i].fname);
+            localStorage.setItem('lname', this.resp[this.i].lname);
+            localStorage.setItem('email', this.resp[this.i].email);
+            localStorage.setItem('role', this.resp[this.i].role);
+            break;
           }
-          // this.loginform.reset();
-          break;
           // localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJmbmFtZSI6IkFha2FyIiwibG5hbWUiOiJNdXRoYSIsIm1udW0iOiI5NjU3NTM5NzAwIiwiZW1haWwiOiJhYWthci5tdXRoYTE4QGdtYWlsLmNvbSJ9.AosLUv67pSiNqMBPYDo_xQILyJEdL6r6zcYuUWlrGyg");
-          // localStorage.setItem('fname', this.resp[i].fname);
-          // localStorage.setItem('lname', this.resp[i].lname);
-          // localStorage.setItem('email', this.resp[i].email);
-          
         }
-        else{
-          alert('Login Failed!. Please enter correct credentials');
-          this.loginform.reset();
-          break;
-          
-        }
+      }
+      if (this.i == this.resp.length) {
+        alert('Login Failed!. Please enter correct credentials');
+        // this.loginform.reset();
       }
     });
   }

@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-md-6">
       <div class="card">
@@ -8,10 +8,11 @@
           <hr>
         </div>
         <form [formGroup]='signupform' (ngSubmit)="onSignup()">
-          <div class="form-group">
-            <label for="fname">First Name</label>
+          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
+            <label>First Name</label>
             <input formControlName="fname" type="text" class="form-control" id="fname" placeholder="Enter First Name">
           </div>
+          <div style="height: 20px;">
           <div *ngIf="!fname.valid && fname.touched">
             <div [hidden]="!fname.errors.required" class="text-danger ">
               First Name is required.
@@ -20,10 +21,12 @@
               First Name is short.
             </div>
           </div>
-          <div class="form-group">
+        </div>
+          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
             <label for="lname">Last Name</label>
             <input formControlName="lname" type="text" class="form-control" id="lname" placeholder="Enter Last Name">
           </div>
+          <div style="height: 20px;">
           <div *ngIf="!lname.valid && lname.touched">
             <div [hidden]="!lname.errors.required" class="text-danger ">
               First Name is required.
@@ -32,11 +35,13 @@
               Last Name can only have alphabets.
             </div>
           </div>
-          <div class="form-group">
+        </div>
+          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
             <label for="emailid">Email address</label>
             <input formControlName="email" type="email" class="form-control" id="emailid" aria-describedby="emailHelp"
               placeholder="Enter email">
           </div>
+          <div style="height: 20px;">
           <div *ngIf="!email.valid && email.touched">
             <div [hidden]="!email.errors.required" class="text-danger ">
               Email is required.
@@ -45,11 +50,13 @@
               Email is not valid.
             </div>
           </div>
-          <div class="form-group">
+        </div>
+          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
             <label for="mnum">Mobile Number</label>
             <input formControlName="mnum" type="text" class="form-control" id="mnum" aria-describedby="emailHelp"
               placeholder="Enter mobile number">
           </div>
+          <div style="height: 20px;">
           <div *ngIf="!mnum.valid && mnum.touched">
             <div [hidden]="!mnum.errors.required" class="text-danger ">
               Mobile Number is required.
@@ -58,10 +65,12 @@
               Mobile Number is not valid.
             </div>
           </div>
-          <div class="form-group">
+        </div>
+          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
             <label for="pass">Password</label>
             <input formControlName="pass" type="password" class="form-control" id="pass" placeholder="Password">
           </div>
+          <div style="height: 20px;">
           <div *ngIf="!pass.valid && pass.touched">
             <div [hidden]="!pass.errors.required" class="text-danger ">
               Password is required.
@@ -70,6 +79,7 @@
               Minimum 6 characters required.
             </div>
           </div>
+        </div>
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <br>
@@ -77,4 +87,105 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-2"></div>
+    <div class="col-lg-6 col-md-8 login-box">
+      <div class="col-lg-12 login-key">
+      </div>
+      <div class="col-lg-12 login-title">
+        SIGN UP FOR ESTORE
+      </div>
+
+      <div class="col-lg-12 login-form">
+        <div class="col-lg-12 login-form">
+          <form [formGroup]='signupform' (ngSubmit)="onSignup()">
+            <div class="form-group">
+              <label class="form-control-label">FIRST NAME</label>
+              <input type="text" class="form-control" formControlName="fname">
+            </div>
+            <div style="height: 20px;">
+              <div *ngIf="!fname.valid && fname.touched">
+                <div [hidden]="!fname.errors.required" class="text-danger ">
+                  First Name is required.
+                </div>
+                <div [hidden]="!fname.errors.minlength" class="text-danger ">
+                  First Name is short.
+                </div>
+              </div>
+            </div>
+            <div class="form-group" >
+              <label for="lname" class="form-control-label">LAST NAME</label>
+              <input formControlName="lname" type="text" class="form-control" id="lname">
+            </div>
+            <div style="height: 20px;">
+            <div *ngIf="!lname.valid && lname.touched">
+              <div [hidden]="!lname.errors.required" class="text-danger ">
+                Last Name is required.
+              </div>
+              <div [hidden]="!lname.errors.pattern" class="text-danger ">
+                Last Name can only have alphabets.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">MOBILE NUMBER</label>
+            <input formControlName="mnum" type="text" class="form-control" id="mnum">
+          </div>
+          <div style="height: 20px;">
+          <div *ngIf="!mnum.valid && mnum.touched">
+            <div [hidden]="!mnum.errors.required" class="text-danger ">
+              Mobile Number is required.
+            </div>
+            <div [hidden]="!mnum.errors.pattern" class="text-danger ">
+              Mobile Number is not valid.
+            </div>
+          </div>
+        </div>
+            <div class="form-group">
+              <label class="form-control-label">EMAIL</label>
+              <input type="text" class="form-control" formControlName="email">
+            </div>
+            <div style="height: 20px;">
+              <div *ngIf="!email.valid && email.touched" class="">
+                <span [hidden]="!email.errors.required" class="text-danger">
+                  Email is required.
+                </span>
+                <div [hidden]="!email.errors.email" class="text-danger ">
+                  Email is not valid.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">PASSWORD</label>
+              <input type="password" class="form-control" formControlName="pass">
+            </div>
+            <div style="height: 20px;">
+              <div *ngIf="!pass.valid && pass.touched">
+                <div [hidden]="!pass.errors.required" class="text-danger ">
+                  Password is required.
+                </div>
+                <div [hidden]="!pass.errors.minlength" class="text-danger ">
+                  Minimum 6 characters required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 loginbttm">
+              <div class="col-lg-6 login-btm login-text">
+                <!-- Error Message -->
+              </div>
+              <div class="login-btm login-button float-left">
+                <button type="submit" class="btn btn-outline-primary" style="margin-right: 10px;">SIGN UP</button>
+                <button type="submit" class="btn btn-outline-primary float-right" routerLink="/login">LOGIN</button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-2"></div>
+    </div>
+  </div>

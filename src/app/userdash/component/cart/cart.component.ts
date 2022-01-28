@@ -16,11 +16,15 @@ export class CartComponent implements OnInit {
   count: number = 0;
   idn: number = 0;
   trashicon = faTrash;
+  loginstate: boolean = true;
   constructor(
     getcart: GetcartserviceService,
     getproduct: GetproductserviceService
   ) {
-    getcart.getCart(4).subscribe((data: any) => {
+    if(localStorage.getItem('role') != null){
+      this.loginstate = false;
+    }
+    getcart.getCart(3).subscribe((data: any) => {
       this.cartdata = data;
     });
 
@@ -36,7 +40,6 @@ export class CartComponent implements OnInit {
           }
         }
       }
-      console.log(this.cartdata1);
       for (let i = 0; i < this.products.length; i++) {
         this.count = 0;
         for (let j = 0; j < this.cartdata1.length; j++) {

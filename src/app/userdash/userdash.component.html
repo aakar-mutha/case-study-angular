@@ -1,15 +1,63 @@
-<div class="navbar bg-primary shadow-sm">
+<!-- <div class="navbar bg-primary shadow-sm">
     <div class="navbar-brand align-items-left d-flex" style="color: white; font-size: 1.25rem;" routerLink="/userdash">
         <fa-icon [icon]="logoicon"></fa-icon>
         <span style="padding-left: 10px;">Welcome to Homepage</span>
     </div>
-    <!-- <div class="navbar-brand fx" style="color: white; font-size: 1.25rem;" >
+    <div class="navbar-brand fx" style="color: white; font-size: 1.25rem;" >
 sdfsdfs
         <input type="text" class="form-control" placeholder="Search Products">
     <fa-icon [icon]="searchicon" class="searchicon d-flex align-items-center"></fa-icon>
-    </div> -->
-    <div class="navbar-brand align-items-left d-flex" style="color: white; font-size: 1.25rem;">
-        <fa-icon [icon]="carticon" routerLink="cart"></fa-icon>
     </div>
-</div>
-<router-outlet></router-outlet>
+    <div class="navbar-brand align-items-right d-flex" style="color: white; font-size: 1.25rem;">
+        <fa-icon [icon]="carticon" routerLink="cart"></fa-icon>
+        <fa-icon [icon]="usericon" (click)="checklogin()" style="margin-left:5px;"></fa-icon>
+        <fa-icon [icon]="signouticon" (click)="signout()" style="margin-left:5px;" [hidden]="state"></fa-icon>
+    </div>
+</div> -->
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
+    </button>
+    ESTORE
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+        <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" [hidden]="state">
+
+        <h4 class="name" [hidden]="state">{{name}}</h4>
+        <!-- <p class="designation"> {{role}} </p> -->
+
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button"  routerLink="/userdash">
+            <mat-icon>home</mat-icon>
+            <span> Home</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="cart">
+            <mat-icon>shopping_cart</mat-icon>
+            <span> Cart</span>
+        </button>
+        <button mat-button class="menu-button" (click)="checklogin()" [hidden]="!state">
+            <mat-icon>login</mat-icon>
+            <span> Login </span>
+        </button>
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button" (click)="signout()" [hidden]="state">
+            <mat-icon>logout</mat-icon>
+            <span> Logout</span>
+        </button>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

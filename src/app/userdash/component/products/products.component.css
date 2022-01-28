@@ -7,7 +7,7 @@
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0,0, 0.2);
-    border-radius: 0.25rem;
+    /* border-radius: 0.25rem; */
 
 }
 .item img{
@@ -19,13 +19,13 @@
     text-align: center;
 }
 
-.item a:hover{
-    color: blue;
-}
 
 .card img{
-    width: 200px;
-    height: 200px;
+    min-width: 150px;
+    min-height: 150px;
+    width: 10vw;
+    height: 10vw;
+    
     margin-bottom: 15px;
     transition: 0.3s ease-in-out;
 }
@@ -38,4 +38,15 @@
 .card{
     padding: 20px;
     margin: 20px;
+    color: #303030 ;
+    border-radius: 2.25rem;
+    min-width: 200px;
+    max-width: 300px;
+    /* width:3vw; */
+}
+
+.card-btn{
+    border-radius: 2.25rem;
+    background-color: #16B1D4;
+    border: #16B1D4;
 }

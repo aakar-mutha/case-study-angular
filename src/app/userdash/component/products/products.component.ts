@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetproductserviceService } from './getproductservice.service';
-import { AddtocartserviceService } from './addtocartservice.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -10,7 +10,7 @@ export class ProductsComponent implements OnInit {
   a:Product[] = [];
   check = false;
   productlist:any;
-  constructor(private getproductservive:GetproductserviceService,private AddToCart:AddtocartserviceService)  { 
+  constructor(private getproductservive:GetproductserviceService)  { 
     this.getproductservive.getProduct().subscribe(data=>{
       this.productlist=data;
     });
@@ -31,10 +31,7 @@ export class ProductsComponent implements OnInit {
       });
     }
 
-    this.AddToCart.postData(this.a).subscribe(data=>{
-      console.log(data);
-    });
-  }
+ }
   ngOnInit(): void {
   }
 

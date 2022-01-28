@@ -9,7 +9,7 @@ import { RoleguardGuard } from './guard/roleguard.guard';
 
 
 const routes: Routes = [
-  {path:"",redirectTo:'login',pathMatch:'full'},
+  {path:"",redirectTo:'userdash',pathMatch:'full'},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
   // {path:'home', loadChildren:()=> import("../app/home/home.component").then(m=>m.HomeComponent), canActivate:[AuthService]},
