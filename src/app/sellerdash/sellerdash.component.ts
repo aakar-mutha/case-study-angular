@@ -27,6 +27,7 @@ export class SellerdashComponent implements OnInit {
   }
   logout() {
     localStorage.clear();
+    // localStorage.setItem('role', 'user');
     this.router.navigate(['/userdash']);
   }
   ngOnInit(): void {

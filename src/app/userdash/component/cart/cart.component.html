@@ -39,9 +39,19 @@
                             <td>{{item.price * item.quantity}}</td>
                             <td><button class="btn btn-danger">
                                     <fa-icon [icon]="trashicon" (click)="delitem(item.id)"></fa-icon>
-                                </button></td>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
+                    <tr>
+                        <td>Total Amount</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>${{total | number}}</td>
+                        <td><button class="btn btn-success" routerLink="">PAY</button>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

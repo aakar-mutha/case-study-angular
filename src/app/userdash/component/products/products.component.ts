@@ -10,6 +10,7 @@ export class ProductsComponent implements OnInit {
   a:Product[] = [];
   check = false;
   productlist:any;
+  products:any;
   constructor(private getproductservive:GetproductserviceService)  { 
     this.getproductservive.getProduct().subscribe(data=>{
       this.productlist=data;

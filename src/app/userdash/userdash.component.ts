@@ -25,7 +25,7 @@ export class UserdashComponent implements OnInit {
   // role = localStorage.getItem('role');
   constructor(private router: Router, private ovserver: BreakpointObserver) {
     {
-      if (localStorage.getItem('role') != null) {
+      if (localStorage.getItem('fname') != null) {
         this.state = false;
       }
 
@@ -45,7 +45,8 @@ export class UserdashComponent implements OnInit {
   
   }
   checklogin() {
-    if (localStorage.getItem('role') == 'user' && localStorage.getItem('fname') != null) {
+    console.log(localStorage.getItem('fname') != null && localStorage.getItem('lname') != null);
+    if (localStorage.getItem('fname') != null && localStorage.getItem('lname') != null) {
       alert("Already Logged In");
       this.state = false;
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetcartserviceService } from './getcartservice.service';
 import { GetproductserviceService } from '../products/getproductservice.service';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -17,43 +18,50 @@ export class CartComponent implements OnInit {
   idn: number = 0;
   trashicon = faTrash;
   loginstate: boolean = true;
-  constructor(
-    getcart: GetcartserviceService,
-    getproduct: GetproductserviceService
-  ) {
-    if(localStorage.getItem('role') != null){
+  total:number = 0;
+  payicon = faCashRegister;
+  constructor(getcart: GetcartserviceService, getproduct: GetproductserviceService) {
+    if (localStorage.getItem('role') != null) {
       this.loginstate = false;
     }
     getcart.getCart(3).subscribe((data: any) => {
       this.cartdata = data;
-    });
-
-    getproduct.getProduct().subscribe((res: any) => {
-      this.products = res;
-      for (let i = 0; i < this.cartdata.length; i++) {
-        for (let j = 0; j < this.cartdata[i].products.length; j++) {
-          for (let k = 0; k < res.length; k++) {
-            if (this.cartdata[i].products[j].productId == res[k].id) {
-              res[k].quantity = this.cartdata[i].products[j].quantity;
-              this.cartdata1.push(res[k]);
+      console.log(this.cartdata);
+      this.total = 0;
+      getproduct.getProduct().subscribe((res: any) => {
+        this.products = res;
+        for (let i = 0; i < this.cartdata.length; i++) {
+          for (let j = 0; j < this.cartdata[i].products.length; j++) {
+            for (let k = 0; k < res.length; k++) {
+              if (this.cartdata[i].products[j].productId == res[k].id) {
+                res[k].quantity = this.cartdata[i].products[j].quantity;
+                this.cartdata1.push(res[k]);
+              }
             }
           }
         }
-      }
-      for (let i = 0; i < this.products.length; i++) {
-        this.count = 0;
-        for (let j = 0; j < this.cartdata1.length; j++) {
-          if (this.products[i].id == this.cartdata1[j].id) {
-            this.count += this.cartdata1[j].quantity;
-            this.idn = j;
+        for (let i = 0; i < this.products.length; i++) {
+          this.count = 0;
+          for (let j = 0; j < this.cartdata1.length; j++) {
+            if (this.products[i].id == this.cartdata1[j].id) {
+              this.count += this.cartdata1[j].quantity;
+              this.idn = j;
+            }
+          }
+          if (this.count > 0) {
+            this.cartdata1[this.idn].quantity = this.count;
+            this.cartdata2.push(this.cartdata1[this.idn]);
+            this.total += this.cartdata1[this.idn].price * this.cartdata1[this.idn].quantity;
           }
         }
-        if (this.count > 0) {
-          this.cartdata1[this.idn].quantity = this.count;
-          this.cartdata2.push(this.cartdata1[this.idn]);
-        }
-      }
-    });
+      } 
+    );
+    }
+    );
+
+    for(let i = 0; i < this.cartdata2.length; i++){
+      this.total += this.cartdata2[i].price * this.cartdata2[i].quantity;
+    }
   }
   delitem(id: any) {
     for (let i = 0; i < this.cartdata2.length; i++) {

@@ -42,3 +42,7 @@
     padding: 12px 50px;
     border-radius: 3px;
 }
+
+.table-responsive{
+    display:inline-table;
+}

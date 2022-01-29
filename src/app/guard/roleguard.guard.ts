@@ -14,9 +14,15 @@ export class RoleguardGuard implements CanActivate {
   }
   
   private  isAuthorised(route: ActivatedRouteSnapshot,): boolean {
-    const roles = localStorage.getItem('role');
+    const role = localStorage.getItem('role');
     const expectedRole = route.data['expectedRoles'];
-    console.log(roles);
-    return roles == expectedRole;
+    console.log();
+
+    if (expectedRole.find((roles:any) => roles == localStorage.getItem('role'))) {
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

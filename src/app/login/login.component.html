@@ -1,53 +1,3 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="text-center">
-          <h1 style="font-size: 2rem;">Login to Estore</h1>
-          <hr>
-        </div>
-        <form [formGroup]='loginform' (ngSubmit)="onLogin()">
-          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
-            <label>Email address</label>
-            <input type="email" class="form-control" style="margin-bottom: 0; padding-bottom: 0;"
-              placeholder="Enter email" formControlName="email">
-          </div>
-          <div style="height: 20px;">
-            <div *ngIf="!email.valid && email.touched">
-              <span [hidden]="!email.errors.required" class="text-danger ">
-                Email is required.
-              </span>
-              <div [hidden]="!email.errors.email" class="text-danger ">
-                Email is not valid.
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
-            <label>Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-              formControlName="pass">
-          </div>
-          <div style="height: 20px;">
-            <div *ngIf="!pass.valid && pass.touched">
-              <div [hidden]="!pass.errors.required" class="text-danger ">
-                Password is required.
-              </div>
-              <div [hidden]="!pass.errors.minlength" class="text-danger ">
-                Minimum 6 characters required.
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <br>
-        <a routerLink="/signup">New User? Click here to Sign Up. </a>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
 <div class="container">
   <div class="row">
     <div class="col-lg-3 col-md-2"></div>
@@ -67,10 +17,10 @@
             </div>
             <div style="height: 20px;">
               <div *ngIf="!email.valid && email.touched" class="">
-                <span [hidden]="!email.errors.required" class="text-danger">
+                <span [hidden]="!email.errors.required" class="warn-txt">
                   Email is required.
                 </span>
-                <div [hidden]="!email.errors.email" class="text-danger ">
+                <div [hidden]="!email.errors.email" class="warn-txt ">
                   Email is not valid.
                 </div>
               </div>
@@ -79,12 +29,12 @@
               <label class="form-control-label">PASSWORD</label>
               <input type="password" class="form-control" formControlName="pass">
             </div>
-            <div style="height: 20px;">
+            <div style="height: 30px;">
               <div *ngIf="!pass.valid && pass.touched">
-                <div [hidden]="!pass.errors.required" class="text-danger ">
+                <div [hidden]="!pass.errors.required" class="warn-txt">
                   Password is required.
                 </div>
-                <div [hidden]="!pass.errors.minlength" class="text-danger ">
+                <div [hidden]="!pass.errors.minlength" class="warn-txt ">
                   Minimum 6 characters required.
                 </div>
               </div>
