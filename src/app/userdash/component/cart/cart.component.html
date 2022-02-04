@@ -1,5 +1,5 @@
 <ng-container>
-    <div class="container" [hidden]="!loginstate">
+    <div class="container" [hidden]="!cartempty">
         <div class="card border-0" style="background-color: #303030; color: white;">
             <h1 class="card-title">My Cart</h1>
 
@@ -13,7 +13,7 @@
         </div>
     </div>
 </ng-container>
-<div class="" [hidden]="loginstate">
+<div class="" [hidden]="cartempty">
     <ng-container *ngIf="true">
         <div class="card-table container">
             <div class="cart-product">
@@ -38,7 +38,7 @@
                             <td>{{item.quantity}}</td>
                             <td>{{item.price * item.quantity}}</td>
                             <td><button class="btn btn-danger">
-                                    <fa-icon [icon]="trashicon" (click)="delitem(item.id)"></fa-icon>
+                                    <fa-icon [icon]="trashicon" (click)="delitem(item.productId)"></fa-icon>
                                 </button>
                             </td>
                         </tr>

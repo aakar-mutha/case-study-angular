@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { GetcartserviceService } from './getcartservice.service';
 import { GetproductserviceService } from '../products/getproductservice.service';
+import { PostcartService } from './postcart.service';
+
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -10,7 +13,6 @@ import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
 })
 export class CartComponent implements OnInit {
   cartdata: any;
-  columnsToDisplay = ['id', 'title', 'image', 'price', 'quantity'];
   cartdata1: Cart[] = [];
   cartdata2: Cart[] = [];
   products: any;
@@ -20,11 +22,16 @@ export class CartComponent implements OnInit {
   loginstate: boolean = true;
   total:number = 0;
   payicon = faCashRegister;
-  constructor(getcart: GetcartserviceService, getproduct: GetproductserviceService) {
+  userId:any;
+  cartempty = true;
+  constructor(getcart: GetcartserviceService, getproduct: GetproductserviceService, 
+    private postcart: PostcartService) {
+    this.userId = localStorage.getItem('userId');
     if (localStorage.getItem('role') != null) {
       this.loginstate = false;
     }
-    getcart.getCart(3).subscribe((data: any) => {
+    getcart.getCart(this.userId).subscribe((data: any) => {
+      this.cartempty = false;
       this.cartdata = data;
       console.log(this.cartdata);
       this.total = 0;
@@ -33,7 +40,7 @@ export class CartComponent implements OnInit {
         for (let i = 0; i < this.cartdata.length; i++) {
           for (let j = 0; j < this.cartdata[i].products.length; j++) {
             for (let k = 0; k < res.length; k++) {
-              if (this.cartdata[i].products[j].productId == res[k].id) {
+              if (this.cartdata[i].products[j].productId == res[k].productId) {
                 res[k].quantity = this.cartdata[i].products[j].quantity;
                 this.cartdata1.push(res[k]);
               }
@@ -43,7 +50,7 @@ export class CartComponent implements OnInit {
         for (let i = 0; i < this.products.length; i++) {
           this.count = 0;
           for (let j = 0; j < this.cartdata1.length; j++) {
-            if (this.products[i].id == this.cartdata1[j].id) {
+            if (this.products[i].productId == this.cartdata1[j].productId) {
               this.count += this.cartdata1[j].quantity;
               this.idn = j;
             }
@@ -56,24 +63,47 @@ export class CartComponent implements OnInit {
         }
       } 
     );
+    }, (err) =>{
+      console.log(err);
+      this.cartempty = true;
     }
     );
-
     for(let i = 0; i < this.cartdata2.length; i++){
       this.total += this.cartdata2[i].price * this.cartdata2[i].quantity;
     }
   }
-  delitem(id: any) {
+  delitem(productId: any) {
+    console.log(productId);
+
     for (let i = 0; i < this.cartdata2.length; i++) {
-      if (this.cartdata2[i].id == id) {
+      if (this.cartdata2[i].productId == productId) {
         this.cartdata2.splice(i, 1);
       }
     }
+    this.total = 0;
+    for (let i = 0; i < this.cartdata2.length; i++) {
+      this.total += this.cartdata2[i].price * this.cartdata2[i].quantity;
+    }
+    if(this.total = 0){
+      this.cartempty = false;
+    }
+    let updatedcart = {
+      userId: this.userId,
+      products: this.cartdata2
+    }
+    this.postcart.updateCart(updatedcart).subscribe((res: any) => {
+      console.log(res);
+    });
   }
   ngOnInit() { }
+
+  ngOnChanges() {
+    
+  }
 }
+
 export interface Cart {
-  id: number;
+  productId: string;
   title: string;
   price: number;
   description: string;

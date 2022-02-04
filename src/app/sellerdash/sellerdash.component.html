@@ -7,7 +7,16 @@
             close
         </mat-icon>
     </button>
-    {{name}}'s Seller Portal 
+    <button mat-button routerLink="/userdash" >
+       
+        <mat-icon>done_outline</mat-icon>
+        <span style="margin-left: 10px; font-size: 1.5rem;">ESTORE</span>
+    </button>
+    
+    <button mat-icon-button class="d-block mr-0 ml-auto" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+     
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -32,13 +41,11 @@
             <mat-icon>storefront</mat-icon>
             <span> All Products</span>
         </button>
-
-        <mat-divider></mat-divider>
-
-        <button mat-button class="menu-button" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span> Logout</span>
+        <button mat-button class="menu-button" routerLink="userdash">
+            <mat-icon>add_shopping_cart</mat-icon>
+            <span> Buy Products </span>
         </button>
+        <mat-divider></mat-divider>
 
     </mat-sidenav>
     <mat-sidenav-content>

@@ -8,7 +8,7 @@ export class LoginserviceService {
   constructor(private http:HttpClient) {
     
    }
-    getData() {
-      return this.http.get('http://localhost:3000/signup');
+    getData(data:any) {
+      return this.http.get('http://localhost:3000/login',{params:data});
     }
 }

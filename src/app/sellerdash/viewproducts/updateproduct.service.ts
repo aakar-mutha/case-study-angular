@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class GetproductserviceService {
+export class UpdateproductService {
 
   constructor(private http:HttpClient) { }
-
-  getProduct() {
-  return this.http.get('http://localhost:3000/allproducts/');
+  updateproduct(data:any){
+    console.log(data);
+    return this.http.post('http://localhost:3000/products/update',data);
   }
 }

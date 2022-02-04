@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
-export class SignupserviceService {
+export class PostproductserviceService {
   body:any;
   constructor(private http:HttpClient) { }
 
-  signup(data:any){
-    // console.log(data);  
-    this.body = data;
-    return this.http.post('http://localhost:3000/signup',this.body);
+  postProduct(cartarray:any){
+    this.body = cartarray;
+    return this.http.post('http://localhost:3000/carts',this.body);
   }
 }

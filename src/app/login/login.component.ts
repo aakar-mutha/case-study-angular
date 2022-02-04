@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loginform: any;
   resp: any;
   i: any;
+  tosend:any;
   constructor(private formbuilder: FormBuilder, private loginService: LoginserviceService, private router: Router) {
     this.loginform = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -30,46 +31,34 @@ export class LoginComponent implements OnInit {
   get pass() {
     return this.loginform.get('pass');
   }
-
+  
   onLogin() {
-    this.loginService.getData().subscribe(res => {
+    this.tosend = {
+      email: this.loginform.value.email,
+      pass: this.loginform.value.pass
+    }
+    this.loginService.getData(this.tosend).subscribe(res => {
       this.resp = res;
-      console.log(this.resp.length);
-      for (this.i = 0; this.i < this.resp.length; this.i++) {
-        // console.log(this.email.value);
-        // console.log(this.pass.value);
-        console.log(this.resp[this.i]);
-        console.log(this.email.value == this.resp[this.i].email && this.pass.value == this.resp[this.i].pass)
-        if (this.email.value == this.resp[this.i].email && this.pass.value == this.resp[this.i].pass) {
-          alert('Login Successful');
-          // console.log(this.resp[this.i].role);
-          if (this.resp[this.i].role == 'seller') {
-            this.router.navigate(['/sellerdash']);
-            localStorage.setItem('fname', this.resp[this.i].fname);
-            localStorage.setItem('lname', this.resp[this.i].lname);
-            localStorage.setItem('email', this.resp[this.i].email);
-            localStorage.setItem('role', this.resp[this.i].role);
-            break;
-          }
-          else {
-            this.router.navigate(['/userdash']);
-            localStorage.setItem('fname', this.resp[this.i].fname);
-            localStorage.setItem('lname', this.resp[this.i].lname);
-            localStorage.setItem('email', this.resp[this.i].email);
-            localStorage.setItem('role', this.resp[this.i].role);
-            break;
-          }
-          // localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJmbmFtZSI6IkFha2FyIiwibG5hbWUiOiJNdXRoYSIsIm1udW0iOiI5NjU3NTM5NzAwIiwiZW1haWwiOiJhYWthci5tdXRoYTE4QGdtYWlsLmNvbSJ9.AosLUv67pSiNqMBPYDo_xQILyJEdL6r6zcYuUWlrGyg");
-        }
+      console.log(this.resp);
+      if (this.resp.status == 200) {
+        localStorage.setItem('role', this.resp.role);
+        localStorage.setItem('email', this.resp.email);
+        localStorage.setItem('fname', this.resp.fname);
+        localStorage.setItem('lname', this.resp.lname);
+        localStorage.setItem('mobile', this.resp.mobile);
+        localStorage.setItem('userId', this.resp.userId);
+        
+        this.router.navigate(['/'+this.resp.role+'dash']);
       }
-      if (this.i == this.resp.length) {
-        alert('Login Failed!. Please enter correct credentials');
-        // this.loginform.reset();
-      }
-    });
+    },
+      err => {
+        alert('Invalid Credentials');
+        this.loginform.reset();
+      });
   }
 
   ngOnInit(): void {
+   
   }
 
 }

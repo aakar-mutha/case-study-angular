@@ -8,7 +8,7 @@ export class AddProductServiceService {
   constructor(private http: HttpClient) { }
 
   postData(data:any) {
-    return this.http.post('http://localhost:3000/' + localStorage.getItem('fname')+ localStorage.getItem('lname')+'/', data);
+    return this.http.post('http://localhost:3000/products', data);
   }
 
 

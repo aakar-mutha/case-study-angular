@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AddProductServiceService } from './add-product-service.service';
+import { ImageUploadServiceService } from './uploadimage/image-upload-service.service';
 @Component({
   selector: 'app-addproduct',
   templateUrl: './addproduct.component.html',
@@ -8,33 +9,64 @@ import { AddProductServiceService } from './add-product-service.service';
 })
 export class AddproductComponent implements OnInit {
   addproductform: any;
-  event: any;
-  constructor(private formbuilder: FormBuilder, private addproductService: AddProductServiceService) {
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file:any;
+  constructor(private formbuilder: FormBuilder, private addproductService: AddProductServiceService,
+    private fileUploadService: ImageUploadServiceService) {
     this.addproductform = this.formbuilder.group({
-      pname: ['', [Validators.required, Validators.minLength(3)]],
-      pdesc: ['', [Validators.required, Validators.minLength(3)]],
-      pprice: ['', [Validators.required]],
-      // pimage : ['', [Validators.required,]],
-      // pimagesource : ['', [Validators.required,]],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(3)]],
+      price: ['', [Validators.required]],
+      pimage : [''],
     });
   }
 
   ngOnInit(): void {
   }
 
-  get pname() {
-    return this.addproductform.get('pname');
+  get title() {
+    return this.addproductform.get('title');
   }
-  get pdesc() {
-    return this.addproductform.get('pdesc');
+  get description() {
+    return this.addproductform.get('description');
   }
-  get pprice() {
-    return this.addproductform.get('pprice');
+  get price() {
+    return this.addproductform.get('price');
+  }
+  get pimage() {
+    return this.addproductform.get('image');
   }
 
   postproduct() {
-    this.addproductService.postData(this.addproductform.value).subscribe((res: any) => {
-      if (res.id) {
+    
+    
+    this.loading = !this.loading;
+    console.log(this.file);
+    // this.fileUploadService.upload(this.file).subscribe(
+    //     (event: any) => {
+    //         if (typeof (event) === 'object') {
+
+    //             // Short link via api response
+    //             this.shortLink = event.link;
+
+    //             this.loading = false; // Flag variable 
+    //         }
+    //     },(err) => {
+    //       console.log(err);
+    //     }
+    // );
+//     console.log(this.shortLink);
+    let prod={
+      userId : localStorage.getItem('userId'),
+      title:this.addproductform.value.pname,
+      description:this.addproductform.value.pdesc,
+      price:this.addproductform.value.pprice,
+      image:"https://picsum.photos/200/300"
+    }
+    this.addproductService.postData(prod).subscribe((res: any) => {
+      console.log(res);
+      if (res.message) {
         alert('Product Added Successfully');
         this.addproductform.reset();
       }
@@ -45,13 +77,12 @@ export class AddproductComponent implements OnInit {
     });
   }
  
+  onChange(event:any) {
+    this.file = event.target.files[0];
+}
 
-  // onFileChange(event:any) {
-  //   if (event.target.files.length > 0) {
-  //     const file = event.target.files[0];
-  //     this.addproductform.patchValue({
-  //       fileSource: file
-  //     });
-  //   }
-  // }
+// OnClick of button Upload
+
+
+
 }

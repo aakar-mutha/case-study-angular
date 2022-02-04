@@ -12,14 +12,16 @@ import { SellerhomeComponent } from './sellerhome/sellerhome.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { ViewproductsComponent } from './viewproducts/viewproducts.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalformComponent } from './viewproducts/modalform/modalform.component';
 
 @NgModule({
   declarations: [
     SellerdashComponent,
     SellerhomeComponent,
     AddproductComponent,
-    ViewproductsComponent
+    ViewproductsComponent,
+    ModalformComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDividerModule,
     MatSidenavModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class SellerdashModule { }

@@ -7,7 +7,7 @@ export class GetcartserviceService {
 
   constructor(private http:HttpClient) { }
 
-  getCart(userId:number){
-    return this.http.get('https://fakestoreapi.com/carts/user/' + userId);
+  getCart(userId:any){
+    return this.http.get('http://localhost:3000/carts',{params:{userId:userId}});
   }
 }

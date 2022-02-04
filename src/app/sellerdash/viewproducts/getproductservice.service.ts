@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class GetproductserviceService {
-
   constructor(private http:HttpClient) { }
 
-  getProduct() {
-  return this.http.get('https://fakestoreapi.com/products/');
+  getProduct(userId:any) {
+  
+  return this.http.get('http://localhost:3000/products/',{params:{userId:userId}});
   }
 }

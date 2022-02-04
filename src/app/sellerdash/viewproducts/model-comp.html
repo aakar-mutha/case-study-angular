@@ -8,20 +8,23 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col col-md-10 col-lg-10">
-        <form>
+        <form  >
           <div class="form-group">
             <label for="productName">Product name</label>
-            <textarea type="text" rows = 2 class="form-control" formControlName="pname" value="{{pname}}"></textarea>
+            <textarea type="text" id="pname" rows=2 class="form-control" formControlName="title"
+              value="{{pname}}"></textarea>
           </div>
           <div class="form-group">
             <label for="productName">Product Description</label>
-            <textarea rows="5" type="text" class="form-control" formControlName="pdesc" value="{{pdesc}}"></textarea>
+            <textarea rows="5" id="pdesc" type="text" class="form-control" formControlName="description"
+              value="{{pdesc}}"></textarea>
           </div>
-          <div class="form-group" >
+          <div class="form-group">
             <label for="productPrice">Product price</label>
-            <input type="text" class="form-control" formControlName="pprice" value="{{pprice}}">
+            <input type="text" id="pprice" class="form-control" formControlName="price" value="{{pprice}}">
           </div>
-          <button id="btnSubmit" type="submit" class="btn btn-success" (click)="postproduct(pname,pdesc,pprice)" style="margin-bottom:10px;">Update Product</button>
+          <button id="btnSubmit" type="submit" class="btn btn-success" style="margin-bottom:10px;">Update Product 
+          </button>
         </form>
       </div>
     </div>
@@ -29,3 +32,4 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
+
