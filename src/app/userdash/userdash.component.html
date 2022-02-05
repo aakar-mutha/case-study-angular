@@ -7,15 +7,18 @@
             close
         </mat-icon>
     </button>
-    <button mat-icon-button routerLink="/userdash" >
+    <button mat-button routerLink="/userdash" >
         <mat-icon>done_outline</mat-icon>
         <span style="margin-left: 10px; font-size: 1.5rem;">ESTORE</span>
     </button>
-    <button mat-icon-button class="d-block mr-0 ml-auto" *ngIf="state == true" (click)="checklogin()" >
+    <button mat-icon-button class="d-inlne-block me-0 ms-auto " *ngIf="state == true" (click)="checklogin()" style="padding-right: 85px;" >
         <mat-icon>login</mat-icon>
+        <span style="margin-left: 10px; font-size: 1.25rem;">Login</span>
     </button>
-    <button mat-icon-button class="d-block mr-0 ml-auto" *ngIf="state == false" (click)="signout()">
+    
+    <button mat-icon-button class="d-block me-0 ms-auto" *ngIf="state == false" (click)="signout()" style="padding-right: 95px;">
         <mat-icon>logout</mat-icon>
+        <span style="margin-left: 10px; font-size: 1.25rem;">Logout</span>
     </button>
     
 </mat-toolbar>
@@ -35,7 +38,7 @@
         </button>
         <button mat-button class="menu-button" routerLink="cart">
             <mat-icon>shopping_cart</mat-icon>
-            <span> Cart</span>
+            <span> Cart   [ {{count}} ]</span>
         </button>
         <button mat-button class="menu-button" routerLink="/sellerdash" [hidden]="!seller">
             <mat-icon>how_to_reg</mat-icon>

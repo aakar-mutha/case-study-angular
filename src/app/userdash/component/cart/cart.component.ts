@@ -84,8 +84,9 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < this.cartdata2.length; i++) {
       this.total += this.cartdata2[i].price * this.cartdata2[i].quantity;
     }
-    if(this.total = 0){
+    if(this.total == 0){
       this.cartempty = false;
+      window.location.reload();
     }
     let updatedcart = {
       userId: this.userId,
@@ -97,8 +98,17 @@ export class CartComponent implements OnInit {
   }
   ngOnInit() { }
 
-  ngOnChanges() {
-    
+  pay(){
+    let cartpay = {
+      userId: this.userId,
+      products: this.cartdata2,
+      total: this.total
+    }
+    this.postcart.payCart(cartpay).subscribe((res: any) => {
+      console.log(res);
+      alert("Payment Successful");
+      window.location.reload();
+    });
   }
 }
 

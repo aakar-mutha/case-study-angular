@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GetproductserviceService } from './getproductservice.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder,Validators } from '@angular/forms';
-import { AddProductServiceService } from '../addproduct/add-product-service.service';
+import { DeleteproductService } from './deleteproduct.service';
 import { ModalformComponent } from './modalform/modalform.component';
 
 @Component({
@@ -13,14 +12,20 @@ import { ModalformComponent } from './modalform/modalform.component';
 
 export class ViewproductsComponent implements OnInit {
  
-  
+  noprodsfound:boolean = false;
   a:Product[] = [];
   check = false;
   productlist:any;
-  constructor(private getproductservive:GetproductserviceService,private modalService: NgbModal)  { 
+  constructor(private getproductservive:GetproductserviceService,private modalService: NgbModal,
+    private deleteproductservice:DeleteproductService)   { 
     this.getproductservive.getProduct(localStorage.getItem('userId')).subscribe(data=>{
       this.productlist=data;
-    });
+      
+    },err=>{
+      console.log(err);
+      this.noprodsfound=true;
+    }
+    );
     
   }
   open(pname:any,pdesc:any,pprice:any,pid:any) {
@@ -36,6 +41,11 @@ export class ViewproductsComponent implements OnInit {
       console.log(error);
     });
   }
+  deleteprod(pid:any){
+    this.deleteproductservice.deleteproduct(pid).subscribe(data=>{
+      window.location.reload();
+    });
+  }
   ngOnInit(): void {
   }
 
@@ -45,25 +55,3 @@ export interface Product {
   id: number;
   quantity: number;
 }
-
-// @Component({
-//   selector: 'ngbd-modal-content',
-//   templateUrl: './model-comp.html'
-// })
-// export class NgbdModalContent {
-//   @Input() pname:any;
-//   @Input() pimg:any;
-//   @Input() pdesc:any;
-//   @Input() pprice:any;
-//   @Input() pid:any;
-//   addproductform: any;
-//   constructor(public activeModal: NgbActiveModal,private formbuilder: FormBuilder, private addproductService: AddProductServiceService) {
-//     this.addproductform = this.formbuilder.group({
-//       pname: ['', [Validators.required, Validators.minLength(3)]],
-//       pdesc: ['', [Validators.required, Validators.minLength(3)]],
-//       pprice: ['', [Validators.required]],
-//       // pimage : ['', [Validators.required,]],
-//       // pimagesource : ['', [Validators.required,]],
-//     });
-//   }
-// }

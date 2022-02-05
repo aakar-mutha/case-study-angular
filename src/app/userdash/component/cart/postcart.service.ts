@@ -11,4 +11,9 @@ export class PostcartService {
     this.body = cartarray;
     return this.http.post('http://localhost:3000/carts/delete',this.body);
   }
+
+  payCart(cartarray:any){
+    this.body = cartarray;
+    return this.http.post('http://localhost:3000/carts/pay',this.body);
+  }
 }

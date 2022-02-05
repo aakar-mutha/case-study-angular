@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { GetproductserviceService } from './getproductservice.service';
-import { PostproductserviceService } from './postproductservice.service';
+import { PostproductserviceService } from '../products/postproductservice.service';
+import { GetproductserviceService } from '../products/getproductservice.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: 'app-viewproducts',
+  templateUrl: './viewproducts.component.html',
+  styleUrls: ['./viewproducts.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ViewproductsComponent implements OnInit {
   a: Product[] = [];
   check = false;
   productlist: any;
@@ -15,7 +15,8 @@ export class ProductsComponent implements OnInit {
   userId = localStorage.getItem('userId');
   cart: any;
   loggedin = localStorage.getItem('role');
-  
+  product :any;
+  quant = "QUANTITY";
   constructor(private getproductservive: GetproductserviceService,
     private postproductservice: PostproductserviceService,private router:Router) {
     this.getproductservive.getProduct().subscribe(data => {
@@ -23,35 +24,42 @@ export class ProductsComponent implements OnInit {
     });
     try {
       this.userId = localStorage.getItem('userId');
-      
+      this.product = sessionStorage.getItem('product')
+      this.product = JSON.parse(this.product);
     }
     catch (e) {
       console.log(e);
     }
   }
 
-  addtocart(pid: any) {
+  addtocart(selectform:any,pid: any) {
     if (this.loggedin) {
-      console.log(pid);
+      // console.log(pid);
+
       for (let i = 0; i < this.a.length; i++) {
         if (this.a[i].productId == pid) {
           this.check = true;
-          this.a[i].quantity += 1;
+          this.a[i].quantity += Number(selectform.value.quantity);
           this.cart = {
             userId: this.userId,
             products: this.a
           }
-          
+          console.log("here");
+          console.log(this.cart);
           this.postproductservice.postProduct(this.cart).subscribe(data => {
           
           });
+          console.log(this.cart);
+          alert("Product added to cart1");
+          
           break;
+
         }
       }
       if (!this.check) {
         this.a.push({
           productId: pid,
-          quantity: 1
+          quantity: Number(selectform.value.quantity)
         });
         this.cart = {
           userId: this.userId,
@@ -62,23 +70,12 @@ export class ProductsComponent implements OnInit {
         });
       }
       console.log(this.cart);
+      // alert("Product added to cart");
+      
     }
     window.location.reload();
   }
   
-  viewproduct(pid:any,title:any,image:any,desc:any,price:any) {
-    console.log(pid,title,image,desc,price);
-    let product = {
-      productId: pid,
-      title: title,
-      image: image,
-      description: desc,
-      price: price
-  }
-  sessionStorage.setItem('product',JSON.stringify(product));
-  // this.router.navigate(['/viewproduct']);
-}
-
   ngOnInit(): void {
   }
 

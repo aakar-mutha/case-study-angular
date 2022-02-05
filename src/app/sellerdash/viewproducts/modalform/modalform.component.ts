@@ -18,8 +18,8 @@ export class ModalformComponent{
   addproductform: any;
   constructor(public activeModal: NgbActiveModal,private formbuilder: FormBuilder, private updateproductservice: UpdateproductService) {
     this.addproductform = this.formbuilder.group({
-      title: [this.pname, [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(3)]],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       price: ['', [Validators.required]],
     });
     this.addproductform.patchValue({
@@ -53,7 +53,8 @@ export class ModalformComponent{
     console.log(this.addproductform.value);
     this.updateproductservice.updateproduct(prod).subscribe(data=>{
       alert('Product Updated Successfully');
-
+      this.activeModal.close();
+      window.location.reload();
     });
   }
 

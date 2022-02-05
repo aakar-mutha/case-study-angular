@@ -7,6 +7,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 // import { faUser } from '@fortawesome/free-solid-svg-icons';
 // import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
+import { GetcartserviceService } from './component/cart/getcartservice.service';
 @Component({
   selector: 'app-userdash',
   templateUrl: './userdash.component.html',
@@ -24,7 +25,8 @@ export class UserdashComponent implements OnInit {
   name = localStorage.getItem('fname') + " " + localStorage.getItem('lname');
   role = localStorage.getItem('role');
   seller = false;
-  constructor(private router: Router, private ovserver: BreakpointObserver) {
+  count = 0;
+  constructor(private router: Router, private ovserver: BreakpointObserver, private getcartservice: GetcartserviceService) {
     {
       if(this.role == "seller"){
         this.seller = true;
@@ -34,6 +36,8 @@ export class UserdashComponent implements OnInit {
       }
 
     }
+
+    
   }
   ngAfterViewInit() {
     this.ovserver.observe(['(max-width: 800px)']).subscribe(res => {
@@ -46,7 +50,14 @@ export class UserdashComponent implements OnInit {
         this.sidenav.open();
       }
     });
-  
+    
+    this.getcartservice.getCart(localStorage.getItem('userId')).subscribe((data:any) => {
+      console.log(data);
+      data.forEach((element:any) => {
+        
+        this.count  = element.products.length;
+      });
+    });
   }
   checklogin() {
     console.log(localStorage.getItem('fname') != null && localStorage.getItem('lname') != null);

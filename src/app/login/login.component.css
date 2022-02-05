@@ -38,7 +38,7 @@ body {
 input[type=text] {
     background-color: #1A2226;
     border: none;
-    border-bottom: 2px solid #0DB8DE;
+    border-bottom: 2px solid #2f619e;
     border-top: 0px;
     border-radius: 0px;
     font-weight: bold;
@@ -51,7 +51,7 @@ input[type=text] {
 input[type=password] {
     background-color: #1A2226;
     border: none;
-    border-bottom: 2px solid #0DB8DE;
+    border-bottom: 2px solid #2f619e;
     border-top: 0px;
     border-radius: 0px;
     font-weight: bold;
@@ -70,7 +70,7 @@ input[type=password] {
     border-color: inherit;
     -webkit-box-shadow: none;
     box-shadow: none;
-    border-bottom: 2px solid #0DB8DE;
+    border-bottom: 2px solid #2f619e;
     outline: 0;
     background-color: #1A2226;
     color: #ECF0F5;
@@ -86,15 +86,15 @@ label {
 }
 
 .form-control-label {
-    font-size: 10px;
+    font-size: 1rem;
     color: white;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
 .btn-outline-primary {
-    border-color: #0DB8DE;
-    color: #0DB8DE;
+    border-color: #2f619e;
+    color: #2f619e;
     border-radius: 0px;
     font-weight: bold;
     letter-spacing: 1px;

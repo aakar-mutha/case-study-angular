@@ -9,16 +9,17 @@ import { ImageUploadServiceService } from './uploadimage/image-upload-service.se
 })
 export class AddproductComponent implements OnInit {
   addproductform: any;
-  shortLink: string = "";
+  link:any;
   loading: boolean = false; // Flag variable
   file:any;
+  a:string = '';
   constructor(private formbuilder: FormBuilder, private addproductService: AddProductServiceService,
     private fileUploadService: ImageUploadServiceService) {
     this.addproductform = this.formbuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
       price: ['', [Validators.required]],
-      pimage : [''],
+      image : ['', [Validators.required]]
     });
   }
 
@@ -34,37 +35,29 @@ export class AddproductComponent implements OnInit {
   get price() {
     return this.addproductform.get('price');
   }
-  get pimage() {
+  get image() {
     return this.addproductform.get('image');
   }
 
-  postproduct() {
-    
-    
+   postproduct() {
     this.loading = !this.loading;
     console.log(this.file);
-    // this.fileUploadService.upload(this.file).subscribe(
-    //     (event: any) => {
-    //         if (typeof (event) === 'object') {
-
-    //             // Short link via api response
-    //             this.shortLink = event.link;
-
-    //             this.loading = false; // Flag variable 
-    //         }
-    //     },(err) => {
-    //       console.log(err);
-    //     }
-    // );
-//     console.log(this.shortLink);
-    let prod={
-      userId : localStorage.getItem('userId'),
-      title:this.addproductform.value.pname,
-      description:this.addproductform.value.pdesc,
-      price:this.addproductform.value.pprice,
-      image:"https://picsum.photos/200/300"
-    }
-    this.addproductService.postData(prod).subscribe((res: any) => {
+    
+    
+    console.log(this.link);
+    setTimeout(() => {
+      
+    }, 2000);
+    
+    this.addproductService.postData(
+      {
+        userId : localStorage.getItem('userId'),
+        title:this.addproductform.value.title,
+        description:this.addproductform.value.description,
+        price:this.addproductform.value.price,
+        image:this.link
+      }
+    ).subscribe((res: any) => {
       console.log(res);
       if (res.message) {
         alert('Product Added Successfully');
@@ -79,6 +72,12 @@ export class AddproductComponent implements OnInit {
  
   onChange(event:any) {
     this.file = event.target.files[0];
+    this.fileUploadService.upload(this.file).subscribe(
+      (data) => {
+        console.log(data);
+      this.link = data.response.path;
+      }
+    );
 }
 
 // OnClick of button Upload

@@ -12,12 +12,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ViewproductsComponent } from './component/viewproducts/viewproducts.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     UserdashComponent,
     CartComponent,
-    ProductsComponent
+    ProductsComponent,
+    ViewproductsComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatDividerModule,
     MatSidenavModule,
+    FormsModule
 
   ]
 })

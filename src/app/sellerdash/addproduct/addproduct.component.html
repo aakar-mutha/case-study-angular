@@ -39,10 +39,10 @@
         <div class="form-group" style="margin-bottom: 0;">
           <label for="productPrice">Product Image</label>
           <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control" 
-          formControlName="pimage" style="height: 44px;" (change)="onChange($event)">
+          formControlName="image" (change)="onChange($event)">
         </div>
         
-        <button id="btnSubmit" type="submit" class="btn btn-success">Add Product</button>
+        <button id="btnSubmit" type="submit" class="btn btn-success"[disabled]="!addproductform.valid" >Add Product</button>
       </form>
     </div>
   </div>
